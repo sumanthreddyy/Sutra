@@ -1,0 +1,56 @@
+# Default config — copy to data/config.yaml and fill in your keys
+providers:
+  anthropic:
+    api_key: ""  # or set ANTHROPIC_API_KEY env var
+    default_model: "claude-sonnet-4-20250514"
+    cheap_model: "claude-3-5-haiku-20241022"
+
+  openai:
+    api_key: ""  # or set OPENAI_API_KEY env var
+    default_model: "gpt-4o"
+
+  ollama:
+    base_url: "http://localhost:11434"
+    default_model: "llama3"
+
+routing:
+  # Which provider to use for each task type
+  default: anthropic        # Main conversations
+  summarization: ollama     # Memory compression → free
+  extraction: ollama        # Entity/fact extraction → free
+  classification: ollama    # Intent detection → free
+  dream: ollama             # Memory consolidation → free
+  fallback: anthropic       # If local model is down
+
+memory:
+  # Dream system configuration
+  dream:
+    min_hours: 24           # Hours between consolidations
+    min_sessions: 5         # Minimum sessions before triggering
+    max_index_lines: 200    # MEMORY.md line cap
+    max_index_bytes: 25000  # MEMORY.md byte cap
+
+  # Auto-extraction
+  extract:
+    enabled: true
+    min_new_messages: 3     # Minimum new messages before extraction runs
+
+  # Memory directory
+  base_dir: "data/memory"
+
+  # Vector store for semantic search (v0.2)
+  vector_dir: "data/vectors"
+  embedding_provider: "default"     # "default" (sentence-transformers), "ollama", or "openai"
+  ollama_embed_model: "nomic-embed-text"  # Used when embedding_provider is "ollama"
+
+conversations:
+  transcript_dir: "data/conversations"
+  max_context_messages: 50  # Working memory size
+
+tools:
+  web_search:
+    provider: "duckduckgo"  # or "tavily"
+    tavily_api_key: ""      # if using tavily
+  shell:
+    enabled: true
+    allowed_commands: ["ls", "find", "grep", "cat", "head", "tail", "wc", "git"]

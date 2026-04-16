@@ -1,0 +1,33 @@
+# Data
+data/
+*.log
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Secrets
+.env
+config.yaml
+
+# Syncthing
+.stfolder/
+
+# Private docs
+ROADMAP.md
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Conversation history
+.sutra_history
